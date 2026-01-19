@@ -15,6 +15,25 @@ function initSupabase() {
 document.addEventListener('DOMContentLoaded', function() {
     initSupabase();
 
+    // Mobile menu toggle
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    const navbar = document.querySelector('.navbar__nav');
+    
+    if (mobileToggle && navbar) {
+        mobileToggle.addEventListener('click', function() {
+            mobileToggle.classList.toggle('active');
+            navbar.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!mobileToggle.contains(e.target) && !navbar.contains(e.target)) {
+                mobileToggle.classList.remove('active');
+                navbar.classList.remove('active');
+            }
+        });
+    }
+
     const subscribeForms = document.querySelectorAll('.site-footer__form');
     subscribeForms.forEach((form) => {
         form.addEventListener('submit', async (e) => {
