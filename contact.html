@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Veritrust Solutions</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="supabase.js"></script>
+</head>
+<body>
+    <header class="navbar" id="top">
+        <div class="container navbar__inner">
+            <a class="brand" href="index.html" aria-label="Veritrust Solutions">
+                <img src="logo.jpeg" alt="Veritrust Solutions Logo" class="brand__logo">
+                <span class="brand__text">Veritrust <span>Solutions</span></span>
+            </a>
+
+            <nav class="navbar__nav" aria-label="Primary">
+                <div class="navbar__links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="services.html">Services</a>
+                    <a href="contact.html">Contact Us</a>
+                </div>
+
+                <a class="navbar__cta" href="tel:+254722750508">+254 722 750 508</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="get-started" class="cta cta--contact">
+        <div class="container">
+            <div class="cta__header">
+                <h2>Ready to Automate Your Front Desk?</h2>
+                <p>Request a callback/Demo to see how our AI solutions can transform your business</p>
+            </div>
+
+            <div class="cta__card">
+                <form class="contact-form" id="inquiryForm" action="https://formspree.io/f/xlggdgdq" method="POST" aria-label="Request a demo">
+                    <div class="contact-form__grid">
+                        <input type="text" name="name" placeholder="Your Name" aria-label="Your Name" autocomplete="name" required>
+                        <input type="email" name="email" placeholder="Your Email" aria-label="Your Email" autocomplete="email" required>
+                        <input type="tel" name="phone" placeholder="Your Phone Number" aria-label="Your Phone Number" autocomplete="tel" required>
+                        <input type="text" name="company" placeholder="Company Name" aria-label="Company Name" autocomplete="organization" required>
+                    </div>
+
+                    <textarea name="message" placeholder="Tell us about your needs" aria-label="Tell us about your needs" rows="5" required></textarea>
+
+                    <div class="contact-form__actions">
+                        <button type="submit" class="btn-submit">Request Demo</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container site-footer__top">
+            <div class="site-footer__col">
+                <h3 class="site-footer__title">Subscribe Now</h3>
+                <form class="site-footer__form" action="https://formspree.io/f/xlggdgdq" method="POST" aria-label="Subscribe form">
+                    <input class="site-footer__input" type="email" name="email" placeholder="Enter your email" autocomplete="email">
+                    <button class="site-footer__submit" type="submit">Submit</button>
+                </form>
+            </div>
+
+            <div class="site-footer__col">
+                <h3 class="site-footer__title">Email</h3>
+                <p><a class="site-footer__link" href="mailto:veritrust09@gmail.com">veritrust09@gmail.com</a></p>
+            </div>
+
+            <div class="site-footer__col">
+                <h3 class="site-footer__title">Contact us</h3>
+                <p><a class="site-footer__link" href="tel:+254722750508">+254 722 750 508</a></p>
+            </div>
+        </div>
+
+        <div class="site-footer__bottom">
+            <div class="container site-footer__bottom-inner">
+                <p>&copy; 2026 Veritrust. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
