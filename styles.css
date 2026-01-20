@@ -257,7 +257,7 @@ body {
 
 .hero__title {
     transform: skewX(12deg);
-    font-size: clamp(2.2rem, 4.5vw, 4.2rem);
+    font-size: clamp(1.5rem, 3.2vw, 3rem);
     line-height: 1.05;
     letter-spacing: -0.02em;
     margin: 0;
