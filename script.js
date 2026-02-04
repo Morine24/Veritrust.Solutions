@@ -34,119 +34,120 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    const subscribeForms = document.querySelectorAll('.site-footer__form');
-    subscribeForms.forEach((form) => {
-        form.addEventListener('submit', async (e) => {
+    // Custom form handling with success/error messages
+    const inquiryForm = document.getElementById('inquiryForm');
+    const subscribeForm = document.querySelector('.site-footer__form');
+
+    if (inquiryForm) {
+        inquiryForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-
-            const input = form.querySelector('input[type="email"], .site-footer__input');
-            const button = form.querySelector('.site-footer__submit');
-            const email = (input?.value || '').trim();
-
-            if (!email) {
-                alert('Please enter your email to subscribe.');
-                return;
-            }
-
-            if (!/^\S+@\S+\.\S+$/.test(email)) {
-                alert('Please enter a valid email address.');
-                return;
-            }
-
+            
+            const messageDiv = document.getElementById('form-message');
+            const button = inquiryForm.querySelector('.btn-submit');
             const originalText = button.textContent;
+            
+            // Set reply-to email from form data
+            const emailInput = inquiryForm.querySelector('input[name="email"]');
+            const replyToField = inquiryForm.querySelector('input[name="replyto"]');
+            
+            if (emailInput && replyToField) {
+                replyToField.value = emailInput.value;
+            }
+            
+            // Show loading state
             button.textContent = 'Sending...';
             button.disabled = true;
-
+            messageDiv.style.display = 'none';
+            
             try {
-                const response = await fetch('https://formspree.io/f/xlggdgdq', {
+                const formData = new FormData(inquiryForm);
+                const response = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        _subject: 'New Newsletter Subscription',
-                        message: `New subscriber: ${email}`
-                    })
+                    body: formData
                 });
-
+                
                 if (response.ok) {
-                    button.textContent = 'Subscribed!';
+                    // Success message
+                    messageDiv.innerHTML = '✅ Thank you! Your message has been sent successfully. We\'ll get back to you soon!';
+                    messageDiv.className = 'form-message success show';
+                    messageDiv.style.display = 'block';
+                    inquiryForm.reset();
+                    
+                    button.textContent = 'Message Sent!';
                     button.style.background = '#1da851';
-                    form.reset();
-                    alert('Thank you for subscribing! Confirmation sent to veritrust09@gmail.com');
                 } else {
-                    throw new Error('Failed to subscribe');
+                    throw new Error('Failed to send message');
                 }
-            } catch (err) {
-                button.textContent = 'Error';
+            } catch (error) {
+                // Error message
+                messageDiv.innerHTML = '❌ Sorry, there was an error sending your message. Please try again or contact us directly.';
+                messageDiv.className = 'form-message error show';
+                messageDiv.style.display = 'block';
+                
+                button.textContent = 'Try Again';
                 button.style.background = '#dc3545';
-                alert('Error subscribing. Please try again.');
             }
-
+            
+            // Reset button after 3 seconds
             setTimeout(() => {
                 button.textContent = originalText;
                 button.disabled = false;
                 button.style.background = '';
             }, 3000);
         });
-    });
-    
-    const inquiryForm = document.getElementById('inquiryForm');
+    }
 
-    if (inquiryForm) {
-        inquiryForm.addEventListener('submit', async function(e) {
+    if (subscribeForm) {
+        subscribeForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-
-            const button = inquiryForm.querySelector('.btn-submit');
+            
+            const messageDiv = document.getElementById('subscribe-message');
+            const button = subscribeForm.querySelector('.site-footer__submit');
             const originalText = button.textContent;
+            
+            // Set reply-to email from form data
+            const emailInput = subscribeForm.querySelector('input[name="email"]');
+            const replyToField = subscribeForm.querySelector('input[name="replyto"]');
+            
+            if (emailInput && replyToField) {
+                replyToField.value = emailInput.value;
+            }
+            
+            // Show loading state
             button.textContent = 'Sending...';
             button.disabled = true;
-
-            const formData = {
-                name: inquiryForm.name.value,
-                email: inquiryForm.email.value,
-                phone: inquiryForm.phone.value,
-                company: inquiryForm.company.value,
-                message: inquiryForm.message.value
-            };
-
+            messageDiv.style.display = 'none';
+            
             try {
-                // Submit to Formspree for email delivery
-                const formspreeResponse = await fetch('https://formspree.io/f/xlggdgdq', {
+                const formData = new FormData(subscribeForm);
+                const response = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
+                    body: formData
                 });
-
-                // Also save to Supabase database
-                const { data, error } = await supabaseClient
-                    .schema('public')
-                    .from('inquiries')
-                    .insert([formData]);
-
-                if (formspreeResponse.ok) {
-                    button.textContent = 'Message Sent!';
+                
+                if (response.ok) {
+                    // Success message
+                    messageDiv.innerHTML = '✅ Successfully subscribed!';
+                    messageDiv.className = 'form-message success show';
+                    messageDiv.style.display = 'block';
+                    subscribeForm.reset();
+                    
+                    button.textContent = 'Subscribed!';
                     button.style.background = '#1da851';
-                    inquiryForm.reset();
-                    alert('Thank you! Your message has been sent to veritrust09@gmail.com');
                 } else {
-                    throw new Error('Failed to send email');
+                    throw new Error('Failed to subscribe');
                 }
-
-                if (error) {
-                    console.error('Database Error:', error);
-                }
-
-            } catch (err) {
-                button.textContent = 'Error. Try again';
+            } catch (error) {
+                // Error message
+                messageDiv.innerHTML = '❌ Error subscribing. Please try again.';
+                messageDiv.className = 'form-message error show';
+                messageDiv.style.display = 'block';
+                
+                button.textContent = 'Try Again';
                 button.style.background = '#dc3545';
-                console.error('Form submission error:', err);
-                alert('Error sending message. Please try again or contact us directly.');
             }
-
+            
+            // Reset button after 3 seconds
             setTimeout(() => {
                 button.textContent = originalText;
                 button.disabled = false;

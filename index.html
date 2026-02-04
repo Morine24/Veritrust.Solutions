@@ -31,7 +31,7 @@
                     <a href="contact.html">Contact Us</a>
                 </div>
 
-                <a class="navbar__cta" href="tel:+254722750508">+254 722 750 508</a>
+                <a class="navbar__cta" href="tel:+254119954652">+254 119 954 652</a>
             </nav>
         </div>
     </header>
@@ -72,7 +72,14 @@
         <div class="container">
             <h2>Ready to Automate Your Front Desk?</h2>
             <p>Request a callback/Demo to see how our AI solutions can transform your business</p>
-            <form class="contact-form" id="inquiryForm">
+            <form class="contact-form" id="inquiryForm" action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="51d3f6c7-053f-42ce-ba90-23b8d538deb0">
+                <input type="hidden" name="subject" value="New Demo Request from Veritrust Solutions">
+                <input type="hidden" name="from_name" value="Veritrust Solutions Contact Form">
+                <input type="hidden" name="replyto" value="">
+                
+                <!-- Success/Error Message -->
+                <div id="form-message" class="form-message" style="display: none;"></div>
                 <input type="text" name="name" placeholder="Your Name" required>
                 <input type="email" name="email" placeholder="Your Email" required>
                 <input type="tel" name="phone" placeholder="Your Phone Number" required>
@@ -111,7 +118,14 @@
         <div class="container site-footer__top">
             <div class="site-footer__col">
                 <h3 class="site-footer__title">Subscribe Now</h3>
-                <form class="site-footer__form" onsubmit="return false" aria-label="Subscribe form">
+                <form class="site-footer__form" action="https://api.web3forms.com/submit" method="POST" aria-label="Subscribe form">
+                    <input type="hidden" name="access_key" value="51d3f6c7-053f-42ce-ba90-23b8d538deb0">
+                    <input type="hidden" name="subject" value="New Newsletter Subscription">
+                    <input type="hidden" name="from_name" value="Veritrust Solutions Newsletter">
+                    <input type="hidden" name="replyto" value="">
+                    
+                    <!-- Success/Error Message -->
+                    <div id="subscribe-message" class="form-message" style="display: none;"></div>
                     <input class="site-footer__input" type="email" name="email" placeholder="Enter your email" autocomplete="email">
                     <button class="site-footer__submit" type="submit">Submit</button>
                 </form>
@@ -119,12 +133,12 @@
 
             <div class="site-footer__col">
                 <h3 class="site-footer__title">Email</h3>
-                <p><a class="site-footer__link" href="mailto:veritrust09@gmail.com">veritrust09@gmail.com</a></p>
+                <p><a class="site-footer__link" href="mailto:info@veritrust.solutions">info@veritrust.solutions</a></p>
             </div>
 
             <div class="site-footer__col">
                 <h3 class="site-footer__title">Contact us</h3>
-                <p><a class="site-footer__link" href="tel:+254722750508">+254 722 750 508</a></p>
+                <p><a class="site-footer__link" href="tel:+254119954652">+254 119 954 652</a></p>
             </div>
         </div>
 
